@@ -15,7 +15,7 @@ class Multilingual_Woocommerce_Settings_Handler {
 
 	// Settings slug for DB
 	// TODO: Change slug
-	private $settings_slug = 'origin_plugin_settings';
+	private $settings_slug = 'mlw_settings';
 
 	// Settings for the plugin
 	private $settings = array();
@@ -28,8 +28,7 @@ class Multilingual_Woocommerce_Settings_Handler {
 	public function get_default_settings() {
 		// TODO: Set your default Settings
 		return array(
-			'a_setting' => 12,
-			'a_style_setting' => false
+			'decimals' => 2
 		);
 	}
 

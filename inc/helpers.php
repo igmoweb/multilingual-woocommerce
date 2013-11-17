@@ -9,13 +9,15 @@ function mlw_get_model() {
 	return Multilingual_Woocommerce_Model::get_instance();
 }
 
-/**
- * Get the Settings handler instance
- * 
- * @return Object
- */
-function mlw_get_settings_handler() {
-	return Multilingual_Woocommerce_Settings_Handler::get_instance();
+
+function mlw_get_settings() {
+	$settings_handler = Multilingual_Woocommerce_Settings_Handler::get_instance();
+	return $settings_handler->get_settings();
+}
+
+function mlw_update_settings( $new_settings ) {
+	$settings_handler = Multilingual_Woocommerce_Settings_Handler::get_instance();
+	$settings_handler->update_settings( $new_settings );
 }
 
 /**
@@ -36,6 +38,21 @@ function mlw_get_currency_rate( $l_curr, $r_curr ) {
 		$result = floatval( $rate->rate );
 
 	return apply_filters( 'mlw_currency_rate', $result, $l_curr, $r_curr );
+}
+
+/**
+ * Convert a currency to another
+ * 
+ * @param String $from_curr Source currency
+ * @param Float $value Source value
+ * @param String $to_curr Destination currency
+ * 
+ * @return Float Destination value
+ */
+function mlw_convert_currency( $from_curr, $value, $to_curr ) {
+	$rate = mlw_get_currency_rate( $from_curr, $to_curr );
+
+	return woocommerce_price( $value * $rate );
 }
 
 /**
